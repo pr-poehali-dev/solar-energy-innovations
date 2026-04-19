@@ -1,0 +1,31 @@
+{
+  "tests": [
+    {
+      "name": "OPTIONS preflight",
+      "method": "OPTIONS",
+      "path": "/",
+      "expectedStatus": 200
+    },
+    {
+      "name": "Missing required fields",
+      "method": "POST",
+      "path": "/",
+      "body": {"message": "test"},
+      "expectedStatus": 400
+    },
+    {
+      "name": "Valid booking request (no secrets configured)",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "name": "Тест Тестов",
+        "phone": "+7 999 000 00 00",
+        "email": "test@test.ru",
+        "dates": "1-5 мая",
+        "guests": "4",
+        "message": "Хотим забронировать коттедж"
+      },
+      "expectedStatus": 500
+    }
+  ]
+}

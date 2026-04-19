@@ -11,13 +11,43 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { MailIcon, PhoneIcon, MapPinIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
+
+const BOOKING_URL = "https://functions.poehali.dev/8c8f4b4c-0dd7-41f0-bf38-e1093076765b"
 
 export default function Index() {
   const scrollContainerRef = useRef<HTMLDivElement>(null)
   const pricingSectionRef = useRef<HTMLDivElement>(null)
   const aboutSectionRef = useRef<HTMLDivElement>(null)
   const contactSectionRef = useRef<HTMLDivElement>(null)
+
+  const [form, setForm] = useState({ name: "", phone: "", email: "", dates: "", guests: "", message: "" })
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle")
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setForm(prev => ({ ...prev, [e.target.name]: e.target.value }))
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setStatus("loading")
+    try {
+      const res = await fetch(BOOKING_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      })
+      const data = await res.json()
+      if (data.ok) {
+        setStatus("success")
+        setForm({ name: "", phone: "", email: "", dates: "", guests: "", message: "" })
+      } else {
+        setStatus("error")
+      }
+    } catch {
+      setStatus("error")
+    }
+  }
 
   useEffect(() => {
     const scrollContainer = scrollContainerRef.current
@@ -333,46 +363,67 @@ export default function Index() {
                 },
               ]}
             >
-              <form action="" className="w-full space-y-4">
-                <div className="flex flex-col gap-2">
-                  <Label className="text-white [text-shadow:_0_2px_6px_rgb(0_0_0_/_40%)] font-open-sans-custom">
-                    Имя
-                  </Label>
-                  <Input
-                    type="text"
-                    className="bg-white/10 border-white/20 text-white placeholder:text-gray-400 [text-shadow:_0_2px_6px_rgb(0_0_0_/_40%)]"
-                  />
-                </div>
-                <div className="flex flex-col gap-2">
-                  <Label className="text-white [text-shadow:_0_2px_6px_rgb(0_0_0_/_40%)] font-open-sans-custom">
-                    Email
-                  </Label>
-                  <Input
-                    type="email"
-                    className="bg-white/10 border-white/20 text-white placeholder:text-gray-400 [text-shadow:_0_2px_6px_rgb(0_0_0_/_40%)]"
-                  />
-                </div>
-                <div className="flex flex-col gap-2">
-                  <Label className="text-white [text-shadow:_0_2px_6px_rgb(0_0_0_/_40%)] font-open-sans-custom">
-                    Телефон
-                  </Label>
-                  <Input
-                    type="tel"
-                    className="bg-white/10 border-white/20 text-white placeholder:text-gray-400 [text-shadow:_0_2px_6px_rgb(0_0_0_/_40%)]"
-                  />
-                </div>
-                <div className="flex flex-col gap-2">
-                  <Label className="text-white [text-shadow:_0_2px_6px_rgb(0_0_0_/_40%)] font-open-sans-custom">
-                    Сообщение
-                  </Label>
-                  <Textarea className="bg-white/10 border-white/20 text-white placeholder:text-gray-400 [text-shadow:_0_2px_6px_rgb(0_0_0_/_40%)]" />
-                </div>
-                <Button
-                  className="w-full bg-white text-black hover:bg-gray-100 [text-shadow:_0_1px_2px_rgb(0_0_0_/_10%)] font-open-sans-custom"
-                  type="button"
-                >
-                  Отправить
-                </Button>
+              <form onSubmit={handleSubmit} className="w-full space-y-3">
+                {status === "success" ? (
+                  <div className="flex flex-col items-center justify-center h-full gap-4 py-8 text-center">
+                    <div className="text-4xl">🏡</div>
+                    <p className="text-white font-open-sans-custom text-lg font-semibold">Заявка отправлена!</p>
+                    <p className="text-gray-300 font-open-sans-custom text-sm">Мы свяжемся с вами в ближайшее время.</p>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      className="border-white/30 text-white hover:bg-white/10 font-open-sans-custom"
+                      onClick={() => setStatus("idle")}
+                    >
+                      Отправить ещё
+                    </Button>
+                  </div>
+                ) : (
+                  <>
+                    <div className="flex flex-col gap-1">
+                      <Label className="text-white text-xs [text-shadow:_0_2px_6px_rgb(0_0_0_/_40%)] font-open-sans-custom">Имя *</Label>
+                      <Input name="name" value={form.name} onChange={handleChange} required
+                        className="bg-white/10 border-white/20 text-white placeholder:text-gray-400 h-8 text-sm" placeholder="Ваше имя" />
+                    </div>
+                    <div className="flex flex-col gap-1">
+                      <Label className="text-white text-xs [text-shadow:_0_2px_6px_rgb(0_0_0_/_40%)] font-open-sans-custom">Телефон *</Label>
+                      <Input name="phone" value={form.phone} onChange={handleChange} required type="tel"
+                        className="bg-white/10 border-white/20 text-white placeholder:text-gray-400 h-8 text-sm" placeholder="+7 (___) ___-__-__" />
+                    </div>
+                    <div className="flex flex-col gap-1">
+                      <Label className="text-white text-xs [text-shadow:_0_2px_6px_rgb(0_0_0_/_40%)] font-open-sans-custom">Email</Label>
+                      <Input name="email" value={form.email} onChange={handleChange} type="email"
+                        className="bg-white/10 border-white/20 text-white placeholder:text-gray-400 h-8 text-sm" placeholder="email@example.com" />
+                    </div>
+                    <div className="flex gap-2">
+                      <div className="flex flex-col gap-1 flex-1">
+                        <Label className="text-white text-xs [text-shadow:_0_2px_6px_rgb(0_0_0_/_40%)] font-open-sans-custom">Даты</Label>
+                        <Input name="dates" value={form.dates} onChange={handleChange}
+                          className="bg-white/10 border-white/20 text-white placeholder:text-gray-400 h-8 text-sm" placeholder="1–5 июня" />
+                      </div>
+                      <div className="flex flex-col gap-1 w-20">
+                        <Label className="text-white text-xs [text-shadow:_0_2px_6px_rgb(0_0_0_/_40%)] font-open-sans-custom">Гостей</Label>
+                        <Input name="guests" value={form.guests} onChange={handleChange} type="number" min="1"
+                          className="bg-white/10 border-white/20 text-white placeholder:text-gray-400 h-8 text-sm" placeholder="2" />
+                      </div>
+                    </div>
+                    <div className="flex flex-col gap-1">
+                      <Label className="text-white text-xs [text-shadow:_0_2px_6px_rgb(0_0_0_/_40%)] font-open-sans-custom">Пожелания</Label>
+                      <Textarea name="message" value={form.message} onChange={handleChange} rows={2}
+                        className="bg-white/10 border-white/20 text-white placeholder:text-gray-400 text-sm resize-none" placeholder="Баня, мангал, детская кроватка..." />
+                    </div>
+                    {status === "error" && (
+                      <p className="text-red-400 text-xs font-open-sans-custom">Ошибка отправки. Попробуйте позже.</p>
+                    )}
+                    <Button
+                      className="w-full bg-white text-black hover:bg-gray-100 font-open-sans-custom"
+                      type="submit"
+                      disabled={status === "loading"}
+                    >
+                      {status === "loading" ? "Отправляем..." : "Забронировать"}
+                    </Button>
+                  </>
+                )}
               </form>
             </ContactCard>
           </div>
