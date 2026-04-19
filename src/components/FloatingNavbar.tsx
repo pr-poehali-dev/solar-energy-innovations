@@ -16,17 +16,18 @@ export function FloatingNavbar() {
           <button onClick={() => scrollToSection("home")} className="cursor-pointer">
             <div className="flex items-center gap-2 text-white [text-shadow:_0_2px_8px_rgb(0_0_0_/_40%)]">
               <svg
-                fill="currentColor"
+                fill="none"
                 height="1.75em"
                 style={{ flexShrink: 0, lineHeight: 1 }}
                 viewBox="0 0 24 24"
                 width="1.75em"
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <title>PromptCraft</title>
-                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+                <title>ДомРент</title>
+                <path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M9 21V12h6v9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
-              <span className="font-semibold text-lg font-open-sans-custom tracking-tight">PromptCraft</span>
+              <span className="font-semibold text-lg font-open-sans-custom tracking-tight">ДомРент</span>
             </div>
           </button>
 
@@ -36,13 +37,13 @@ export function FloatingNavbar() {
               onClick={() => scrollToSection("features")}
               className="text-sm font-open-sans-custom text-gray-300 transition-colors hover:text-white [text-shadow:_0_2px_6px_rgb(0_0_0_/_40%)]"
             >
-              Функции
+              Преимущества
             </button>
             <button
               onClick={() => scrollToSection("pricing")}
               className="text-sm font-open-sans-custom text-gray-300 transition-colors hover:text-white [text-shadow:_0_2px_6px_rgb(0_0_0_/_40%)]"
             >
-              Тарифы
+              Объекты
             </button>
             <button
               onClick={() => scrollToSection("about")}
@@ -63,7 +64,7 @@ export function FloatingNavbar() {
             size="sm"
             className="bg-white text-black hover:bg-gray-100 [text-shadow:_0_1px_2px_rgb(0_0_0_/_10%)] font-open-sans-custom"
           >
-            Начать
+            Подобрать дом
           </Button>
         </div>
       </div>

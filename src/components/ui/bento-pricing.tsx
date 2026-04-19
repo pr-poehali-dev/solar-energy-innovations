@@ -91,33 +91,33 @@ export function BentoPricing() {
         </div>
         <div className="flex items-center gap-3 p-3">
           <Badge variant="secondary" className="bg-white/10 text-white border-white/20 font-open-sans-custom text-xs">
-            ПРЕМИУМ
+            КОТТЕДЖ ПРЕМИУМ
           </Badge>
           <Badge
             variant="outline"
             className="hidden lg:flex bg-white/5 text-white border-white/20 font-open-sans-custom text-xs"
           >
-            <SparklesIcon className="me-1 size-3" /> Популярный
+            <SparklesIcon className="me-1 size-3" /> Популярный выбор
           </Badge>
           <div className="ml-auto">
             <Button size="sm" className="bg-white text-black hover:bg-gray-100 font-open-sans-custom text-xs">
-              Подписаться
+              Забронировать
             </Button>
           </div>
         </div>
         <div className="flex flex-col p-3 lg:flex-row">
           <div className="pb-2 lg:w-[30%]">
             <span className="font-mono text-3xl font-semibold tracking-tight text-white [text-shadow:_0_4px_20px_rgb(0_0_0_/_60%)]">
-              2 000 ₽
+              8 000 ₽
             </span>
-            <span className="text-gray-300 text-xs font-open-sans-custom">/мес</span>
+            <span className="text-gray-300 text-xs font-open-sans-custom">/сутки</span>
           </div>
           <ul className="text-gray-300 grid gap-2 text-xs lg:w-[70%] font-open-sans-custom">
             {[
-              "2 000 ₽ кредитов включено ежемесячно",
-              "Докупайте кредиты сверх месячного лимита",
-              "5x увеличенный лимит вложений",
-              "Импорт дизайнов из популярных инструментов",
+              "До 10 гостей, 5 спален, 3 санузла",
+              "Баня, беседка, мангал на территории",
+              "Закрытый участок с парковкой",
+              "Полностью оборудованная кухня",
             ].map((f, i) => (
               <li key={i} className="flex items-center gap-2">
                 <Check className="w-[1.05rem] h-[1.05rem] text-white flex-shrink-0" strokeWidth={3} />
@@ -129,50 +129,53 @@ export function BentoPricing() {
       </div>
 
       <PricingCard
-        titleBadge="СТАРТ"
-        priceLabel="0 ₽"
+        titleBadge="УЮТНЫЙ ДОМ"
+        priceLabel="3 500 ₽"
+        priceSuffix="/сутки"
         features={[
-          "500 ₽ кредитов включено ежемесячно",
-          "Деплой приложений в облако",
-          "Визуальное редактирование",
-          "Синхронизация с Git",
+          "До 4 гостей, 2 спальни",
+          "Wi-Fi, Smart TV, полная кухня",
+          "Тихий район, своя парковка",
+          "Постельное бельё и полотенца включены",
         ]}
         className="lg:col-span-3"
-        cta="Начать"
+        cta="Забронировать"
       />
 
       <PricingCard
-        titleBadge="КОМАНДА"
-        priceLabel="3 000 ₽"
-        priceSuffix="/чел/мес"
+        titleBadge="ЗАГОРОДНЫЙ ДОМ"
+        priceLabel="5 500 ₽"
+        priceSuffix="/сутки"
         features={[
-          "3 000 ₽ кредитов на участника ежемесячно",
-          "Единый биллинг и управление командой",
-          "Общие чаты и совместная работа",
+          "До 6 гостей, 3 спальни",
+          "Терраса с видом на природу",
+          "Мангал и беседка в аренду",
         ]}
         className="lg:col-span-4"
+        cta="Забронировать"
       />
 
       <PricingCard
-        titleBadge="БИЗНЕС"
-        priceLabel="10 000 ₽"
-        priceSuffix="/чел/мес"
-        features={["3 000 ₽ кредитов на участника ежемесячно", "Отключение обучения по умолчанию", "Полный доступ к API"]}
+        titleBadge="СЕМЕЙНЫЙ КОТТЕДЖ"
+        priceLabel="6 500 ₽"
+        priceSuffix="/сутки"
+        features={["До 8 гостей, 4 спальни", "Детская площадка на участке", "Баня и бассейн"]}
         className="lg:col-span-4"
+        cta="Забронировать"
       />
 
       <PricingCard
-        titleBadge="КОРПОРАЦИЯ"
+        titleBadge="АРЕНДА НА МЕСЯЦ"
         priceLabel="По запросу"
         priceSuffix=""
         features={[
-          "Отключение обучения по умолчанию",
-          "SAML SSO",
-          "Приоритетный доступ",
-          "Персональная поддержка",
+          "Специальные условия для длительного проживания",
+          "Скидка до 30% от суточной стоимости",
+          "Персональный менеджер",
+          "Гибкие условия договора",
         ]}
         className="lg:col-span-8"
-        cta="Связаться"
+        cta="Обсудить условия"
       />
     </div>
   )
