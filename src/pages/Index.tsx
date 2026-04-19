@@ -29,42 +29,10 @@ export default function Index() {
       const containerWidth = scrollContainer.offsetWidth
       const currentSection = Math.round(currentScroll / containerWidth)
 
-      if (currentSection === 2 && pricingSectionRef.current) {
+      if (currentSection === 3 && pricingSectionRef.current) {
         const pricingSection = pricingSectionRef.current
         const isAtTop = pricingSection.scrollTop === 0
         const isAtBottom = pricingSection.scrollTop + pricingSection.clientHeight >= pricingSection.scrollHeight - 1
-
-        if (delta > 0 && !isAtBottom) {
-          return
-        }
-
-        if (delta < 0 && !isAtTop) {
-          return
-        }
-
-        if (delta < 0 && isAtTop) {
-          e.preventDefault()
-          scrollContainer.scrollTo({
-            left: 1 * containerWidth,
-            behavior: "smooth",
-          })
-          return
-        }
-
-        if (delta > 0 && isAtBottom) {
-          e.preventDefault()
-          scrollContainer.scrollTo({
-            left: 3 * containerWidth,
-            behavior: "smooth",
-          })
-          return
-        }
-      }
-
-      if (currentSection === 3 && aboutSectionRef.current) {
-        const aboutSection = aboutSectionRef.current
-        const isAtTop = aboutSection.scrollTop === 0
-        const isAtBottom = aboutSection.scrollTop + aboutSection.clientHeight >= aboutSection.scrollHeight - 1
 
         if (delta > 0 && !isAtBottom) {
           return
@@ -93,10 +61,10 @@ export default function Index() {
         }
       }
 
-      if (currentSection === 4 && contactSectionRef.current) {
-        const contactSection = contactSectionRef.current
-        const isAtTop = contactSection.scrollTop === 0
-        const isAtBottom = contactSection.scrollTop + contactSection.clientHeight >= contactSection.scrollHeight - 1
+      if (currentSection === 4 && aboutSectionRef.current) {
+        const aboutSection = aboutSectionRef.current
+        const isAtTop = aboutSection.scrollTop === 0
+        const isAtBottom = aboutSection.scrollTop + aboutSection.clientHeight >= aboutSection.scrollHeight - 1
 
         if (delta > 0 && !isAtBottom) {
           return
@@ -117,6 +85,38 @@ export default function Index() {
 
         if (delta > 0 && isAtBottom) {
           e.preventDefault()
+          scrollContainer.scrollTo({
+            left: 5 * containerWidth,
+            behavior: "smooth",
+          })
+          return
+        }
+      }
+
+      if (currentSection === 5 && contactSectionRef.current) {
+        const contactSection = contactSectionRef.current
+        const isAtTop = contactSection.scrollTop === 0
+        const isAtBottom = contactSection.scrollTop + contactSection.clientHeight >= contactSection.scrollHeight - 1
+
+        if (delta > 0 && !isAtBottom) {
+          return
+        }
+
+        if (delta < 0 && !isAtTop) {
+          return
+        }
+
+        if (delta < 0 && isAtTop) {
+          e.preventDefault()
+          scrollContainer.scrollTo({
+            left: 4 * containerWidth,
+            behavior: "smooth",
+          })
+          return
+        }
+
+        if (delta > 0 && isAtBottom) {
+          e.preventDefault()
           return
         }
       }
@@ -126,7 +126,7 @@ export default function Index() {
       if (Math.abs(delta) > 10) {
         let targetSection = currentSection
         if (delta > 0) {
-          targetSection = Math.min(currentSection + 1, 4)
+          targetSection = Math.min(currentSection + 1, 5)
         } else {
           targetSection = Math.max(currentSection - 1, 0)
         }
@@ -171,6 +171,61 @@ export default function Index() {
 
               <div className="flex justify-center">
                 <ShinyButton className="px-8 py-3 text-base">выбрать дом</ShinyButton>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="gallery" className="flex min-w-full snap-start items-center justify-center px-4 py-20">
+          <div className="mx-auto max-w-7xl w-full">
+            <div className="mb-8 text-center">
+              <h2 className="text-3xl md:text-5xl font-open-sans-custom text-white [text-shadow:_0_4px_20px_rgb(0_0_0_/_60%)] mb-3">
+                Наши дома
+              </h2>
+              <p className="text-gray-300 font-open-sans-custom [text-shadow:_0_2px_10px_rgb(0_0_0_/_50%)]">
+                Бревенчатые коттеджи в окружении природы — уют с первого взгляда
+              </p>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-3 h-[55vh]">
+              <div className="relative overflow-hidden rounded-xl row-span-2 group">
+                <img
+                  src="https://cdn.poehali.dev/projects/b605fdb4-9ae9-4ef2-9174-223743121f6b/bucket/653a516e-3357-440e-813e-689e51432cb9.jpg"
+                  alt="Коттедж в лесу"
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+              </div>
+              <div className="relative overflow-hidden rounded-xl group">
+                <img
+                  src="https://cdn.poehali.dev/projects/b605fdb4-9ae9-4ef2-9174-223743121f6b/bucket/79f4c24d-15fe-4fde-8007-1544002864a9.jpg"
+                  alt="Вечерний коттедж"
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+              </div>
+              <div className="relative overflow-hidden rounded-xl group">
+                <img
+                  src="https://cdn.poehali.dev/projects/b605fdb4-9ae9-4ef2-9174-223743121f6b/bucket/da602743-062a-4d0a-8a53-c1947dfe2b09.jpg"
+                  alt="Вид на участок с бассейном"
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+              </div>
+              <div className="relative overflow-hidden rounded-xl group">
+                <img
+                  src="https://cdn.poehali.dev/projects/b605fdb4-9ae9-4ef2-9174-223743121f6b/bucket/b6903626-2b79-469f-829e-84bdb6451883.jpg"
+                  alt="Интерьер со светильником"
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+              </div>
+              <div className="relative overflow-hidden rounded-xl group">
+                <img
+                  src="https://cdn.poehali.dev/projects/b605fdb4-9ae9-4ef2-9174-223743121f6b/bucket/9fb4b215-5253-4a69-8706-dda82bbb4afe.jpg"
+                  alt="Терраса с цветами"
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
               </div>
             </div>
           </div>
